@@ -26,4 +26,9 @@ class List_pokemon extends CI_Controller {
         );
         $this->load->view('pokemon/list_pokemon_detail',$data_array);
     }
+
+    public function my_pokemon_list()
+    {
+        $this->load->view('pokemon/my_pokemon_list');
+    }
 }

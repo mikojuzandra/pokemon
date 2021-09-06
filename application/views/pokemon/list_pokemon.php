@@ -16,6 +16,7 @@
     <header class="bg-primary py-5">
         <div class="container">
             <h1 class="display-4 text-white">Hello Pokemon!</h1>
+            <a href="<?php echo site_url('List_pokemon/my_pokemon_list'); ?>"><p class="display-4 text-white">My Pokemon List : <span id="total_storage"></span></p></a>
         </div>
     </header>
         <div class="row">
@@ -23,7 +24,7 @@
         <?php  
 
             $start = 0;
-            echo "<table id='tabel-data' class='table table-striped table-bordered' width='100%' cellspacing='0'><tr><td>Nomor</td><td>Nama Pokemon</td><td>Detail</td>";
+            echo "<table id='tabel-data' class='table table-striped table-bordered' width='100%' cellspacing='0'><tr><td>Nomor</td><td>Nama Pokemon</td><td>Detail</td><td>Tangkap</td>";
             foreach ($datalist->results as $value)
             {
             ?>
@@ -31,6 +32,7 @@
                 <td><?php echo ++$start ?></td>
                 <td><?php echo $value->name;?></td>
                 <td><a href="<?php echo site_url()."List_pokemon/data/".$start; ?>">Lihat</a></td>
+                <td><button onClick="createItem(<?php echo $start ?>,<?php echo "'".$value->name."'"; ?>)" value="Tangkap">Tangkap</button></td>
                 </tr>
             <?php
             }
@@ -38,8 +40,25 @@
         ?>
         </div>
         </div>
- 
-
+        <script language="JavaScript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+    <script type="text/javascript">
+     $(document).ready(function(){
+         $('#total_storage').text(sessionStorage.length);
+     });
+     
+         function createItem(nomor, nama) {
+             var total = 0;
+           
+            var x = confirm("Apakah ingin menangkap pokemon ini?");
+            if (x){
+                sessionStorage.setItem(nomor, nama);
+                location.reload();
+            }else{
+                return false;
+            }
+          
+            }
+    </script>
 
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
@@ -49,7 +68,10 @@
         <script type="text/javascript">
              $(document).ready(function(){
                 $('#tabel-data').DataTable();
+                
             });
+
+           
         </script>
 </body>
 
